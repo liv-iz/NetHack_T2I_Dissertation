@@ -38,7 +38,7 @@ for prompt in tileset_prompts['prompt']:
         seed=0,  # If a seed is provided, the resulting generated image will be deterministic.
         # What this means is that as long as all generation parameters remain the same, you can always recall the same image simply by generating it again.
         # Note: This isn't quite the case for Clip Guided generations, which we'll tackle in a future example notebook.
-        steps=50,  # Amount of inference steps performed on image generation. Defaults to 30. 
+        steps=50,  # Amount of inference steps performed on image generation. Defaults to 30.
         cfg_scale=8.0,  # Influences how strongly your generation is guided to match your prompt.
                         # Setting this value higher increases the strength in which it tries to match your prompt.
                         # Defaults to 7.0 if not specified.
