@@ -1,8 +1,7 @@
-import pandas as pd # library for data analysis
-import requests # library to handle requests
-import logging # library to handle logging
-from bs4 import BeautifulSoup # library to parse HTML documents
-import requests # library to handle requests
+import pandas as pd  # library for data analysis
+import requests  # library to handle requests
+import logging  # library to handle logging
+from bs4 import BeautifulSoup  # library to parse HTML documents
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
@@ -41,14 +40,14 @@ tileset = pd.DataFrame({
     'Image_link': srcs
 })
 
-#  Replace the .png in the Title column
+# Replace the .png in the Title column
 logging.info('Replacing .png in Title column')
 tileset['Title'].replace('.png', '', regex=True, inplace=True)
 
 # Remove 2 bottom rows
 tileset = tileset[:-2]
 
-#  Save to csv file
+# Save to csv file
 logging.info('Saving DataFrame to CSV file')
 tileset.to_csv('tileset_vanilla.csv', index=False)
 
