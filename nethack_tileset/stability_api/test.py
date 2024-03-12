@@ -40,8 +40,8 @@ for prompt in tileset_prompts['prompt']:
         # Note: This isn't quite the case for Clip Guided generations, which we'll tackle in a future example notebook.
         steps=50,  # Amount of inference steps performed on image generation. Defaults to 30.
         cfg_scale=30.0,  # Influences how strongly your generation is guided to match your prompt.
-                        # Setting this value higher increases the strength in which it tries to match your prompt.
-                        # Defaults to 7.0 if not specified.
+                         # Setting this value higher increases the strength in which it tries to match your prompt.
+                         # Defaults to 7.0 if not specified.
         width=1024,  # Generation width, defaults to 512 if not included.
         height=1024,  # Generation height, defaults to 512 if not included.
         samples=1,  # Number of images to generate, defaults to 1 if not included.
