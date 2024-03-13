@@ -2,3 +2,5 @@
 More specific art style and QUALITY of output (some in pixel art for example are pixelated at low resolution and some at high res)
 Increase number of steps maybe (https://twitter.com/iScienceLuvr/status/1564847717066559488  twitter on different diffusion models)
 Create negative prompts for each element or generic?
+paint style? 2d/3d specification -> output singular objects not group
+sos i wanna add gitignore and it wont work (aaa to the stability-sdk folder)
