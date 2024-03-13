@@ -3,6 +3,7 @@ import os
 import random
 import time
 import openai
+import argparse
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -75,13 +76,30 @@ def generate_completions(prompt, temperature=1, top_p=0.7, max_tokens=2048):
     return answer
 
 
-def get_description_prompt(name):
-    prompt = (
-        f"For the {name} object from the game NetHack, provide a concise visual "
-        "description in no more than three sentences. Do not mention the game of "
-        "NetHack. Do not mention the name of the object. Just provide a visual description. "
-        "Do not output anything else."
-    )
+def get_description_prompt(name, mode="default"):
+    if mode == "default":
+        prompt = (
+            f"For the {name} object from the game NetHack, provide a concise visual "
+            "description in no more than three sentences. Do not mention the game of "
+            "NetHack. Do not mention the name of the object. Just provide a visual description. "
+            "Do not output anything else."
+        )
+    elif mode == "technical":
+        # TODO BEAN UPDATE!
+        prompt = (
+            f"For the {name} object from the game NetHack, provide a concise technical "
+            "description in no more than three sentences. Do not mention the game of "
+            "NetHack. Do not mention the name of the object. Just provide a technical description. "
+            "Do not output anything else."
+        )
+    elif mode == "concise":
+        # TODO BEAN UPDATE!
+        prompt = (
+            f"For the {name} object from the game NetHack, provide a concise visual "
+            "description in no more than one sentence. Do not mention the game of "
+            "NetHack. Do not mention the name of the object. Just provide a visual description. "
+            "Do not output anything else."
+        )
     return prompt
 
 
@@ -97,7 +115,7 @@ def print_progress_bar(iteration, total, length=50):
     print(f"\rProgress: |{bar}| {percent}% Complete", end="\r")
 
 
-def generate_csv_responses(input_csv, output_csv, gpt4_params):
+def generate_csv_responses(input_csv, output_csv, gpt4_params, mode):
     total_lines = get_line_count(input_csv)
 
     with open(input_csv, mode="r", encoding="utf-8", newline="") as infile, open(
@@ -114,7 +132,7 @@ def generate_csv_responses(input_csv, output_csv, gpt4_params):
             else:
                 # Assuming each line in the CSV is a single column of text
                 object_name = line[0] if line else ""
-                prompt = get_description_prompt(object_name)
+                prompt = get_description_prompt(object_name, mode=mode)
                 output_text = generate_completions(prompt, **gpt4_params)
                 writer.writerow([output_text])
 
@@ -124,15 +142,38 @@ def generate_csv_responses(input_csv, output_csv, gpt4_params):
 
 
 def main():
+    # Generate arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_csv",
+        type=str,
+        default="tileset_vanilla_titles.csv",
+        help="Path to the input CSV file",
+    )
+    parser.add_argument(
+        "--output_csv",
+        type=str,
+        default="tileset_gpt_4_answers.csv",
+        help="Path to the output CSV file",
+    )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        default="default",
+        help="Mode for GPT-4 prompts",
+    )
+
+    args = parser.parse_args()
     # Generate a description for each tile in NetHack
     gpt4_params = {
         "max_tokens": 2048,
         "temperature": 0.7,
     }
     generate_csv_responses(
-        input_csv="tileset_vanilla_titles.csv",
-        output_csv="tileset_gpt_4_answers.csv",
+        input_csv=args.input_csv,
+        output_csv=args.output_csv,
         gpt4_params=gpt4_params,
+        mode=args.mode,
     )
 
 
