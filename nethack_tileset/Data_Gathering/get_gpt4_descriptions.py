@@ -84,21 +84,20 @@ def get_description_prompt(name, mode="default"):
             "NetHack. Do not mention the name of the object. Just provide a visual description. "
             "Do not output anything else."
         )
+    elif mode == "stability":
+        # TODO BEAN UPDATE!
+        prompt = (
+            f'''Provide an objective concise description suitable for the Stable Diffusion text to
+            image model to produce an image for the {name} object from the game NetHack.
+            Describe the shape, colour, and defining characteristics'''
+        )
     elif mode == "technical":
         # TODO BEAN UPDATE!
         prompt = (
-            f"For the {name} object from the game NetHack, provide a concise technical "
-            "description in no more than three sentences. Do not mention the game of "
-            "NetHack. Do not mention the name of the object. Just provide a technical description. "
-            "Do not output anything else."
-        )
-    elif mode == "concise":
-        # TODO BEAN UPDATE!
-        prompt = (
-            f"For the {name} object from the game NetHack, provide a concise visual "
-            "description in no more than one sentence. Do not mention the game of "
-            "NetHack. Do not mention the name of the object. Just provide a visual description. "
-            "Do not output anything else."
+            f'''For the {name} object from the game NetHack, provide a concise technical visual
+            description in no more than three sentences. Be specific about the visual characteristics
+            of the object including shape, and colour. It should not be carrying anything. Do not
+            mention the name of the object. Do not output anything else.'''
         )
     return prompt
 
